@@ -13,7 +13,6 @@
 		55D81F701807C9E400741EEA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D81F6E1807C9E400741EEA /* InfoPlist.strings */; };
 		55D81F721807C9E400741EEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D81F711807C9E400741EEA /* main.m */; };
 		55D81F761807C9E400741EEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D81F751807C9E400741EEA /* AppDelegate.m */; };
-		55D81F791807C9E400741EEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55D81F771807C9E400741EEA /* Main.storyboard */; };
 		55D81F7C1807C9E400741EEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D81F7B1807C9E400741EEA /* ViewController.m */; };
 		55D81F7E1807C9E400741EEA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D81F7D1807C9E400741EEA /* Images.xcassets */; };
 		55D81F851807C9E400741EEA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D81F841807C9E400741EEA /* XCTest.framework */; };
@@ -237,7 +236,6 @@
 			files = (
 				55D81F7E1807C9E400741EEA /* Images.xcassets in Resources */,
 				55D81F701807C9E400741EEA /* InfoPlist.strings in Resources */,
-				55D81F791807C9E400741EEA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

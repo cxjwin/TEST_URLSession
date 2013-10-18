@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 extern NSString *const kBackgroundSessionIdentifier;
+extern NSString *const kTestImageURLString1;
 
 @interface ViewController : UIViewController <
     NSURLSessionDelegate,

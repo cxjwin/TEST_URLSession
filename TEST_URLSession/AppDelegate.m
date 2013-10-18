@@ -7,6 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+
+@interface AppDelegate () <
+NSURLSessionDelegate,
+NSURLSessionTaskDelegate, 
+NSURLSessionDataDelegate>
+
+@property (strong, nonatomic) NSURLSession *ephemeralSession;
+@property (strong, nonatomic) NSURLSessionDataTask *dataTask;
+
+@end
 
 @implementation AppDelegate
 
@@ -14,7 +25,11 @@
 {
     // Override point for customization after application launch.
     NSLog(@"%f", UIApplicationBackgroundFetchIntervalMinimum);
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:10];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60];
+    
+    NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    ephemeralConfigObject.timeoutIntervalForResource = 30.0f;
+    self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
     return YES;
 }
@@ -61,8 +76,24 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0)
 {
     NSLog(@"%s", __func__);
-    self.window.rootViewController.view.backgroundColor = [UIColor yellowColor];
-    completionHandler(UIBackgroundFetchResultNewData);
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kTestImageURLString1]];
+    [[self.ephemeralSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"1.......");
+            completionHandler(UIBackgroundFetchResultFailed);
+        } else {
+            if ([data length] > 0) {
+                NSLog(@"2.......");
+                completionHandler(UIBackgroundFetchResultNewData);
+
+            } else {
+                NSLog(@"3.......");
+                completionHandler(UIBackgroundFetchResultNoData);
+
+            }
+        }
+    }] resume];
 }
 
 @end

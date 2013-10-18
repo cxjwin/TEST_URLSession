@@ -119,7 +119,9 @@ NSString *const kTestPdfURLString2 =
     
 //    [self downloadTaskWithThreeSessionsWithDelegate];
     
-    [self changeDataTaskToDownloadTask];
+//    [self changeDataTaskToDownloadTask];
+    
+//    [self sameDownloadTasksWithDefaultSessionSeveralTime];
 }
 
 - (void)didReceiveMemoryWarning
@@ -304,6 +306,24 @@ NSString *const kTestPdfURLString2 =
     }] resume];
 }
 
+- (void)sameDownloadTasksWithDefaultSessionSeveralTime
+{
+    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSLog(@"ephemeralSession_1 : %@", location);
+    }] resume];
+    
+    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSLog(@"ephemeralSession_2 : %@", location);
+    }] resume];
+    
+    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSLog(@"ephemeralSession_3 : %@", location);
+    }] resume];
+    
+    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSLog(@"ephemeralSession_4 : %@", location);
+    }] resume];
+}
 
 #pragma mark - 
 #pragma mark - NSURLSessionDelegate
