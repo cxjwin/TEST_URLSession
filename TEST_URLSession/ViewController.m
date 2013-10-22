@@ -53,16 +53,15 @@ NSString *const kTestPdfURLString2 =
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.tempDataDict = [NSMutableDictionary dictionary];
-    self.operationQueue = [[NSOperationQueue alloc] init];
+    self.tempDataDict = [NSMutableDictionary dictionary];    
     
     NSString *cachePath = @"TestCacheDirectory";
 #ifdef DEBUG
-//    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//    NSString *myPath = [myPathList objectAtIndex:0];
-//    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-//    NSString *fullCachePath = [[myPath stringByAppendingPathComponent:bundleIdentifier] stringByAppendingPathComponent:cachePath];
-//    NSLog(@"Cache path: %@\n", fullCachePath);
+    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *myPath = [myPathList objectAtIndex:0];
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *fullCachePath = [[myPath stringByAppendingPathComponent:bundleIdentifier] stringByAppendingPathComponent:cachePath];
+    NSLog(@"Cache path: %@\n", fullCachePath);
 #endif
     NSURLCache *myCache = 
     [[NSURLCache alloc] initWithMemoryCapacity:20 * kOneMegabyte diskCapacity:100 * kOneMegabyte diskPath:cachePath];
@@ -75,7 +74,7 @@ NSString *const kTestPdfURLString2 =
         defaultConfigObject.timeoutIntervalForResource = kDefaultTimeoutIntervalForResource;
         defaultConfigObject.URLCache = myCache;
         defaultConfigObject.requestCachePolicy = NSURLRequestReturnCacheDataElseLoad;
-        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.operationQueue];
+        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     }
     
     // ephemeralConfigObject
@@ -84,7 +83,7 @@ NSString *const kTestPdfURLString2 =
     {
         NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         ephemeralConfigObject.timeoutIntervalForResource = kDefaultTimeoutIntervalForResource;
-        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:self delegateQueue:self.operationQueue];
+        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     }
     
     // backgroundConfigObject
@@ -94,7 +93,7 @@ NSString *const kTestPdfURLString2 =
         NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfiguration:kBackgroundSessionIdentifier];
         backgroundConfigObject.URLCache = myCache;
         backgroundConfigObject.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
-        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.operationQueue];
+        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     }
 }
 
@@ -121,7 +120,9 @@ NSString *const kTestPdfURLString2 =
     
 //    [self changeDataTaskToDownloadTask];
     
-//    [self sameDownloadTasksWithDefaultSessionSeveralTime];
+    [self sameDownloadTasksWithDefaultSessionSeveralTime];
+    
+//    [self multiDownloadTasksWithEphemeralSession];
 }
 
 - (void)didReceiveMemoryWarning
@@ -292,38 +293,55 @@ NSString *const kTestPdfURLString2 =
 }
 
 - (void)multiDownloadTasksWithEphemeralSession
-{
+{    
     [[self.ephemeralSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"1 : %@", location);
+        
+        
+        [self.ephemeralSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+            NSLog(@"downloadTasks count : %d", [downloadTasks count]);
+        }];
     }] resume];
-    
+
     [[self.ephemeralSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString2] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"2 : %@", location);
+        
+        
+        [self.ephemeralSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+            NSLog(@"downloadTasks count : %d", [downloadTasks count]);
+        }];
     }] resume];
     
     [[self.ephemeralSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString3] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"3 : %@", location);
+        
+        
+        [self.ephemeralSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+            NSLog(@"downloadTasks count : %d", [downloadTasks count]);
+        }];
     }] resume];
-    
-    self.operationQueue 
 }
 
 - (void)sameDownloadTasksWithDefaultSessionSeveralTime
 {
-    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kTestImageURLString1]];
+    
+    NSURLSessionDownloadTask *task = [self.defaultSession downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"ephemeralSession_1 : %@", location);
-    }] resume];
+    }];
+    [task resume];
+    
+    [self.defaultSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+        
+        for (NSURLSessionDownloadTask *_task in downloadTasks) {
+            if ([[[_task currentRequest] URL] isEqual:[NSURL URLWithString:kTestImageURLString1]]) {
+                NSLog(@"same request....");
+            }
+        }
+    }];
     
     [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"ephemeralSession_2 : %@", location);
-    }] resume];
-    
-    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        NSLog(@"ephemeralSession_3 : %@", location);
-    }] resume];
-    
-    [[self.defaultSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString1] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        NSLog(@"ephemeralSession_4 : %@", location);
     }] resume];
 }
 

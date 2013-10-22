@@ -18,7 +18,6 @@ extern NSString *const kTestImageURLString1;
     NSURLSessionDownloadDelegate,
     NSURLConnectionDelegate>
 
-@property (strong, nonatomic) NSOperationQueue *operationQueue;
 @property (strong, nonatomic) NSURLSession *defaultSession;
 @property (strong, nonatomic) NSURLSession *backgroundSession;
 @property (strong, nonatomic) NSURLSession *ephemeralSession;
