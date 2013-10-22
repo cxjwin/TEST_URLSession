@@ -304,6 +304,8 @@ NSString *const kTestPdfURLString2 =
     [[self.ephemeralSession downloadTaskWithURL:[NSURL URLWithString:kTestImageURLString3] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSLog(@"3 : %@", location);
     }] resume];
+    
+    self.operationQueue 
 }
 
 - (void)sameDownloadTasksWithDefaultSessionSeveralTime
