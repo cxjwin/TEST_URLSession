@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AB7FDC8A-EF09-4432-A4F5-37E1C4E8F0E9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TEST_URLSession</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</key>
+		<string>https://github.com/cxjwin/TEST_URLSession.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TEST_URLSession.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/cxjwin/TEST_URLSession.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TEST_URLSession</string>
+		</dict>
+	</array>
+</dict>
+</plist>
