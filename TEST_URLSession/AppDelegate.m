@@ -27,7 +27,7 @@ NSURLSessionDataDelegate>
     NSLog(@"%f", UIApplicationBackgroundFetchIntervalMinimum);
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60];
     
-    // add
+    // add test
     NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     ephemeralConfigObject.timeoutIntervalForResource = 30.0f;
     self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
