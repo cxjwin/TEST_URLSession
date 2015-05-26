@@ -10,29 +10,29 @@
 	<string>TEST_URLSession</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</key>
+		<key>57A028AD8D4A2EE21808D3A7B00FEE77EC3FAC3B</key>
 		<string>https://github.com/cxjwin/TEST_URLSession.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TEST_URLSession.xcodeproj/project.xcworkspace</string>
+	<string>TEST_URLSession.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</key>
+		<key>57A028AD8D4A2EE21808D3A7B00FEE77EC3FAC3B</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/cxjwin/TEST_URLSession.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</string>
+	<string>57A028AD8D4A2EE21808D3A7B00FEE77EC3FAC3B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EF3FEBCB-3A15-4FAB-B9C2-610C0D6CD444</string>
+			<string>57A028AD8D4A2EE21808D3A7B00FEE77EC3FAC3B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TEST_URLSession</string>
 		</dict>
